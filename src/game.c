@@ -17,7 +17,7 @@ const unsigned char spritesPal[16] = {
 
 const unsigned char bgPal[16] = {
     0x0C, 0x25, 0x24, 0x34,
-    0x0C, 0x19, 0x29, 0x39,
+    0x0C, 0x13, 0x23, 0x33,
     0x0C, 0x1C, 0x2C, 0x3C,
     0x0C, 0x14, 0x24, 0x34
 };
@@ -110,10 +110,10 @@ void reset()
 void drawUI()
 {
     //Draw score
-    oamBuffer = oam_spr(SCORE_X_COORDS, SCORE_Y_COORDS, 0x10 + scoreParts[0], SCORE_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(SCORE_X_COORDS + 8, SCORE_Y_COORDS, 0x10 + scoreParts[1], SCORE_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(SCORE_X_COORDS + 16, SCORE_Y_COORDS, 0x10 + scoreParts[2], SCORE_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(SCORE_X_COORDS + 24, SCORE_Y_COORDS, 0x10 + scoreParts[3], SCORE_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(SCORE_X_COORDS+8, SCORE_Y_COORDS, 0x10 + scoreParts[0], SCORE_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(SCORE_X_COORDS +8+ 8, SCORE_Y_COORDS, 0x10 + scoreParts[1], SCORE_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(SCORE_X_COORDS + 8+16, SCORE_Y_COORDS, 0x10 + scoreParts[2], SCORE_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(SCORE_X_COORDS + 24+8, SCORE_Y_COORDS, 0x10 + scoreParts[3], SCORE_PALETTE, oamBuffer);
 
     //Draw level
     k = (level == 0xFF) ? 0 : level + 1; 
@@ -142,7 +142,7 @@ void enter()
 
     i = 116;
     j = 100;
-    oamBuffer = oam_spr(i + 8 * 0, j, 'G' - 0x20, SCORE_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(i + 8 * 0, j, 'B' - 0x20, SCORE_PALETTE, oamBuffer);
     oamBuffer = oam_spr(i + 8 * 1, j, 'A' - 0x20, SCORE_PALETTE, oamBuffer);
     oamBuffer = oam_spr(i + 8 * 2, j, 'M' - 0x20, SCORE_PALETTE, oamBuffer);
     oamBuffer = oam_spr(i + 8 * 3, j, 'E' - 0x20, SCORE_PALETTE, oamBuffer);
@@ -157,6 +157,9 @@ void enter()
 
 void game()
 {
+    static unsigned char r = 0;
+
+    r = (rand8() % 6) * 8;
     /*
     INPUT CONTROL
     */
@@ -286,6 +289,17 @@ void game()
             oamBuffer = oam_spr(pillsPositions[i][0] * 8, pillsPositions[i][1] * 8, PILL_SPRITE, PILL_PALETTE, oamBuffer);
         }
     }
+
+    //Draw face
+    oamBuffer = oam_spr(0, r+8, 0x50, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, r+8, 0x51, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8*2, r+8, 0x52, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(0, r+8*2, 0x60, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, r+8*2, 0x61, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8*2, r+8*2, 0x62, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(0, r+8*3, 0x70, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, r+8*3, 0x71, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8*2, r+8*3, 0x72, PILL_PALETTE, oamBuffer);
 
     drawUI();
 }
