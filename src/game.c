@@ -10,8 +10,8 @@
 
 const unsigned char spritesPal[16] = {
     0x0C, 0x25, 0x24, 0x34,
-    0x0C, 0x19, 0x29, 0x39,
-    0x0C, 0x1C, 0x2C, 0x3C,
+    0x0C, 0x11, 0x29, 0x39,
+    0x0C, 0x36, 0x05, 0x01,
     0x0C, 0x14, 0x24, 0x34
 };
 
@@ -159,7 +159,6 @@ void game()
 {
     static unsigned char r = 0;
 
-    r = (rand8() % 6) * 8;
     /*
     INPUT CONTROL
     */
@@ -238,6 +237,8 @@ void game()
         
         SnakeHead[0] += x;
         SnakeHead[1] += y;
+
+        r = !r;//(rand8() % 6) * 24;
     }
 
 
@@ -291,16 +292,49 @@ void game()
     }
 
     //Draw face
-    oamBuffer = oam_spr(0, r+8, 0x50, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(8, r+8, 0x51, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(8*2, r+8, 0x52, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(0, r+8*2, 0x60, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(8, r+8*2, 0x61, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(8*2, r+8*2, 0x62, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(0, r+8*3, 0x70, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(8, r+8*3, 0x71, PILL_PALETTE, oamBuffer);
-    oamBuffer = oam_spr(8*2, r+8*3, 0x72, PILL_PALETTE, oamBuffer);
+    //oamBuffer = oam_spr(0, r + 8, 0x50, PILL_PALETTE, oamBuffer);
+    //oamBuffer = oam_spr(8, r + 8, 165, PILL_PALETTE, oamBuffer);
+    //oamBuffer = oam_spr(8 * 2, r + 8, 0x50, OAM_FLIP_H|PILL_PALETTE, oamBuffer);
+    /*oamBuffer = oam_spr(0, r + 8 * 2, 180, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, r + 8 * 2, 181, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8 * 2, r + 8 * 2, 182, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(0, r + 8 * 3, 196, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, r + 8 * 3, 197, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8 * 2, r + 8 * 3, 196, OAM_FLIP_H|PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(0, r + 8 * 4, 212, PILL_PALETTE, oamBuffer);*/
 
+if (r == 0)
+{
+    oamBuffer = oam_spr(8, 8, 161, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(16, 8, 162, PILL_PALETTE, oamBuffer);
+
+    oamBuffer = oam_spr(0, 16, 176, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, 16, 177, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(16, 16, 178, PILL_PALETTE, oamBuffer);
+
+    oamBuffer = oam_spr(8, 24, 193, 1, oamBuffer);
+    oamBuffer = oam_spr(16, 24, 194, 1, oamBuffer);
+
+    oamBuffer = oam_spr(0, 32, 208, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, 32, 209, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(16, 32, 209, OAM_FLIP_H|PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(24, 32, 208, OAM_FLIP_H|PILL_PALETTE, oamBuffer);
+}
+else
+{
+    oamBuffer = oam_spr(16, 8, 0xa6, PILL_PALETTE, oamBuffer);
+
+    oamBuffer = oam_spr(0, 16, 0xb4, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(8, 16, 0xb5, 1, oamBuffer);
+    oamBuffer = oam_spr(16, 16, 0xb6, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(24, 16, 0xb7, PILL_PALETTE, oamBuffer);
+
+    oamBuffer = oam_spr(8, 24, 0xc5, 1, oamBuffer);
+    oamBuffer = oam_spr(16, 24, 0xc6, 1, oamBuffer);
+
+    oamBuffer = oam_spr(16, 32, 0xd6, PILL_PALETTE, oamBuffer);
+    oamBuffer = oam_spr(24, 32, 0xd7, PILL_PALETTE, oamBuffer);
+}
     drawUI();
 }
 
