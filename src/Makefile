@@ -24,4 +24,5 @@ crt0.o: crt0.s
 	rm $*.s
 
 ../build/%.nes: %.o crt0.o
+	mkdir -p ../build
 	ld65 -C nes.cfg -o $@ crt0.o $< runtime.lib c64.lib
